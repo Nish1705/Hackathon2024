@@ -528,7 +528,7 @@ def settings(request):
             user_profile.location = location
             user_profile.save()
         
-        return redirect('/')
+        return redirect('/signin')
     return render(request, 'setting.html', {'user_profile': user_profile})
 def signup(request):
 
@@ -541,9 +541,12 @@ def signup(request):
         if password == password2:
             if User.objects.filter(email=email).exists():
                 messages.info(request, 'Email Taken')
+                t2s("Email already taken. Try using anopther email address or Sign In")
                 return redirect('signup')
             elif User.objects.filter(username=username).exists():
                 messages.info(request, 'Username Taken')
+                t2s("Username already taken. Try using another Username or Sign In")
+
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username=username, email=email, password=password)
@@ -552,7 +555,7 @@ def signup(request):
                 #log user in and redirect to settings page
                 user_login = auth.authenticate(username=username, password=password)
                 auth.login(request, user_login)
-
+                t2s("Registration Successful.")
                 #create a Profile object for the new user
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user=user_model, id_user=user_model.id)
@@ -560,6 +563,8 @@ def signup(request):
                 return redirect('settings')
         else:
             messages.info(request, 'Password Not Matching')
+            t2s("Password and Confirm Password Fields do not match.")
+
             return redirect('signup')
         
     else:
@@ -575,9 +580,11 @@ def signin(request):
 
         if user is not None:
             auth.login(request, user)
+            t2s("Login Succesful.")
             return redirect('/')
         else:
             messages.info(request, 'Credentials Invalid')
+            t2s("Credentials do not match.Try again or Sign Up")
             return redirect('signin')
 
     else:
