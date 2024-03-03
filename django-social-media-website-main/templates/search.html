@@ -51,6 +51,33 @@
 
 
         document.addEventListener('DOMContentLoaded', function () {
+            
+             document.addEventListener('keydown', function(event) {
+                var pressTimeout;
+                pressTimeout = setTimeout(function () {
+                        console.log('Key pressed:', event.key);
+
+
+                        if (event.key === 'Enter') {
+                            alert('Enter key was pressed!');
+                            
+                            send_data("EnTeR_ClIcKeD")
+                        }
+                        if (event.key === 'Escape') {
+                            alert('Escape key was pressed!');
+
+                            send_data("EsC_ClIcKeD")
+                        }
+                        
+                    }, 500); 
+
+            document.addEventListener('keyup', function (event) {
+                    clearTimeout(pressTimeout);
+                });
+
+            
+        });
+
             let l = [];
             var v1 = document.querySelectorAll("a");
             var images = document.querySelectorAll("img");

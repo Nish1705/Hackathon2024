@@ -52,6 +52,40 @@
 
 
         document.addEventListener('DOMContentLoaded', function () {
+
+            document.addEventListener('keydown', function(event) {
+                var pressTimeout;
+                pressTimeout = setTimeout(function () {
+                        console.log('Key pressed:', event.key);
+
+
+                        if (event.key === 'Enter') {
+                            alert('Enter key was pressed!');
+                            
+                            send_data("EnTeR_ClIcKeD")
+                        }
+                        if (event.key === 'Escape') {
+                            alert('Escape key was pressed!');
+
+                            send_data("EsC_ClIcKeD")
+                        }
+                        
+                    }, 500); 
+
+            document.addEventListener('keyup', function (event) {
+                    clearTimeout(pressTimeout);
+                });
+
+            
+        });
+
+
+
+
+
+
+
+
             let l = [];
             var v1 = document.querySelectorAll("a");
             var images = document.querySelectorAll("img");
@@ -136,7 +170,7 @@
                         <!-- Logo -->
                         <div id="logo" class=" uk-hidden@s">
                             <a href="home.html">
-                                <b><h1 style="text-transform: uppercase;">Social Book</h1></b>
+                                <b><h1 style="text-transform: uppercase;">Deewan-E-Gram</h1></b>
                             </a>
                         </div>
 
