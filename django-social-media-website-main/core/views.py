@@ -20,9 +20,6 @@ import mediapipe as mp
 import math 
 
 
-cap = cv2.VideoCapture(0)
-BOX_SIZE = 50
-
 
 class handDetector():
     def __init__(self, mode=False, maxHands=2, modelComplexity=1, detectionCon=0.5, trackCon=0.5):
@@ -173,42 +170,42 @@ def cursor2():
     cv2.destroyAllWindows()
 
 
-def detect_finger_and_draw_box(frame):
-    # Convert frame to HSV (Hue, Saturation, Value) color space
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+# def detect_finger_and_draw_box(frame):
+#     # Convert frame to HSV (Hue, Saturation, Value) color space
+#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     
-    # Define the HSV range for skin color
-    # Note: These values may need adjustment depending on the skin tone and lighting conditions
-    lower_skin = np.array([0, 48, 80], dtype=np.uint8)
-    upper_skin = np.array([20, 255, 255], dtype=np.uint8)
+#     # Define the HSV range for skin color
+#     # Note: These values may need adjustment depending on the skin tone and lighting conditions
+#     lower_skin = np.array([0, 48, 80], dtype=np.uint8)
+#     upper_skin = np.array([20, 255, 255], dtype=np.uint8)
     
-    # Create a mask for the skin color
-    mask = cv2.inRange(hsv, lower_skin, upper_skin)
+#     # Create a mask for the skin color
+#     mask = cv2.inRange(hsv, lower_skin, upper_skin)
     
-    # Find contours in the mask
-    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+#     # Find contours in the mask
+#     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
-    if contours:
-        # Find the largest contour, assumed to be the hand
-        max_contour = max(contours, key=cv2.contourArea)
+#     if contours:
+#         # Find the largest contour, assumed to be the hand
+#         max_contour = max(contours, key=cv2.contourArea)
         
-        # Find the convex hull of the hand
-        hull = cv2.convexHull(max_contour)
+#         # Find the convex hull of the hand
+#         hull = cv2.convexHull(max_contour)
         
-        # Find the topmost point of the hull, which should correspond to the tip of the finger
-        topmost = tuple(hull[hull[:, :, 1].argmin()][0])
+#         # Find the topmost point of the hull, which should correspond to the tip of the finger
+#         topmost = tuple(hull[hull[:, :, 1].argmin()][0])
         
-        # Draw a fixed-size box around the tip of the finger
-        top_left = (topmost[0] - BOX_SIZE // 2, topmost[1] - BOX_SIZE // 2)
-        bottom_right = (topmost[0] + BOX_SIZE // 2, topmost[1] + BOX_SIZE // 2)
-        cv2.rectangle(frame, top_left, bottom_right, (0, 255, 0), 2)
+#         # Draw a fixed-size box around the tip of the finger
+#         top_left = (topmost[0] - BOX_SIZE // 2, topmost[1] - BOX_SIZE // 2)
+#         bottom_right = (topmost[0] + BOX_SIZE // 2, topmost[1] + BOX_SIZE // 2)
+#         cv2.rectangle(frame, top_left, bottom_right, (0, 255, 0), 2)
         
-        # Return the center of the box instead of the tip for smoother movement
-        box_center = (topmost[0], topmost[1])
+#         # Return the center of the box instead of the tip for smoother movement
+#         box_center = (topmost[0], topmost[1])
         
-        return frame, box_center
+#         return frame, box_center
     
-    return frame, None
+#     return frame, None
 
 # Main loop
 def logic():
@@ -371,20 +368,19 @@ def detect_link_or_filepath(text):
     else:
         return 0
 
-
+not_running=True
 
 def process_data(request):
     data = json.loads(request.body.decode('utf-8'))
-    print(data)
+    print("Data :" ,data)
     # if(data == "EsC_ClIcKeD"):
     #     cap.release()
     #     cv2.destroyAllWindows()
 
+    print(data=="EnTeR_ClIcKeD")
     if (data=="EnTeR_ClIcKeD"):
+        print("Logic")
         logic()
-
-
-
 
 
 

